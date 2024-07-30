@@ -1,4 +1,4 @@
-import getListStudents from './0-get_list_students';
+import getListStudents from './0-get_list_students.js';
 
 describe('getListStudents', () => {
   it('should return an array of student objects', () => {
