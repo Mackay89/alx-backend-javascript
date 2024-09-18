@@ -35,10 +35,10 @@ const countStudents = (dataPath) => new Promise((resolve, reject) => {
       const totalStudents = Object
         .values(studentGroups)
         .reduce((pre, cur) => (pre || []).length + cur.length);
-      console.log('Number of students: ${totalStudents}');
+      console.log(`Number of students: ${totalStudents}`);
       for (const [field, group] of Object.entries(studentGroups)) {
         const studentNames = group.map((student) => student.firstname).join(', ');
-        console.log('Number of students in ${field}: ${group.length}. List: ${studentNames}');
+        console.log(`Number of students in ${field}: ${group.length}. List: ${studentNames}`);
       }
       resolve(true);
     }
@@ -46,3 +46,4 @@ const countStudents = (dataPath) => new Promise((resolve, reject) => {
 });
 
 module.exports = countStudents;
+
