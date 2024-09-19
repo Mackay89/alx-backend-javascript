@@ -1,11 +1,8 @@
-/**
- * Prints the given message to STDOUT.
- *
- * @param {string} msg - The message to be printed.
- */
-function displayMessage(msg) {
-  console.log(msg);
+// Function that prints a string to STDOUT
+function displayMessage(message) {
+  console.log(message);
 }
 
+// Export the function
 module.exports = displayMessage;
 
