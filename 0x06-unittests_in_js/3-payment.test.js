@@ -1,29 +1,18 @@
-/* eslint-disable jest/valid-expect */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable jest/prefer-expect-assertions */
-/* eslint-disable prefer-destructuring */
-
+const chai = require('chai');
+const expect = chai.expect;
 const sinon = require('sinon');
-const { expect } = require('chai');
-const Utils = require('./utils');
-const sendPaymentRequestToApi = require('./3-payment');
+const utils = require('./utils');
+const sendPaymentRequestToApi = require('./3-payment'); // This should be correct
 
 describe('sendPaymentRequestToApi', () => {
-  it('should call calculateNumber method of Utils with correct arguments', () => {
-    // Create a spy on the calculateNumber method of Utils
-    const calculateNumberSpy = sinon.spy(Utils, 'calculateNumber');
+  it('test the send payment request method', () => {
+    const funcspy = sinon.spy(utils, 'calculateNumber');
+    const reqApi = sendPaymentRequestToApi(100, 20);
 
-    // Call the function to test
-    sendPaymentRequestToApi(100, 20);
+    expect(funcspy.calledOnceWithExactly('SUM', 100, 20)).to.equal(true);
+    expect(utils.calculateNumber('SUM', 100, 20)).to.equal(reqApi);
 
-    // Check if calculateNumber was called with 'SUM', 100, and 20
-    expect(calculateNumberSpy.calledWith('SUM', 100, 20)).to.be.true;
-
-    // Check if calculateNumber was called exactly once
-    expect(calculateNumberSpy.callCount).to.equal(1);
-
-    // Restore the original method
-    calculateNumberSpy.restore();
+    funcspy.restore();
   });
 });
 
