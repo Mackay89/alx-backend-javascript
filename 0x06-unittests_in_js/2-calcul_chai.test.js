@@ -1,33 +1,47 @@
-/* eslint-disable jest/valid-expect */
-/* eslint-disable jest/expect-expect */
-/* eslint-disable jest/prefer-expect-assertions */
-const { expect } = require('chai');
-const calculateNumber = require('./1-calcul');
+const chai = require('chai');
+const expect = chai.expect;
+const calculateNumber = require('./2-calcul_chai');
 
-// You can assume a and b are always number
-
-describe('calculateNumber', () => {
-  it('handles adding two rounded numbers when type is SUM', () => {
+describe('test calculate number', () => {
+  it('checks the rounded sum', () => {
+    expect(calculateNumber('SUM', 1, 3)).to.equal(4);
+    expect(calculateNumber('SUM', 1, 3.7)).to.equal(5);
     expect(calculateNumber('SUM', 1.2, 3.7)).to.equal(5);
-    expect(calculateNumber('SUM', -1.2, -3.7)).to.equal(-5);
+    expect(calculateNumber('SUM', 1.5, 3.7)).to.equal(6);
+    expect(calculateNumber('SUM', -1, 3)).to.equal(2);
+    expect(calculateNumber('SUM', -1, -4)).to.equal(-5);
+    expect(calculateNumber('SUM', -1.2, -1.4)).to.equal(-2);
+    expect(calculateNumber('SUM', -2, 3.2)).to.equal(1);
   });
 
-  it('handles subtracting two rounded numbers when type is SUBTRACT', () => {
-    expect(calculateNumber('SUBTRACT', 5.9, 2.3)).to.equal(4);
-    expect(calculateNumber('SUBTRACT', -5.9, -2.3)).to.equal(-4);
+  it('checks the rounded difference', () => {
+    expect(calculateNumber('SUBTRACT', 1, 3)).to.equal(-2);
+    expect(calculateNumber('SUBTRACT', 3.3, 1)).to.equal(2);
+    expect(calculateNumber('SUBTRACT', 1.4, 4.5)).to.equal(-4);
+    expect(calculateNumber('SUBTRACT', 1.5, 3.7)).to.equal(-2);
+    expect(calculateNumber('SUBTRACT', -1, 3)).to.equal(-4);
+    expect(calculateNumber('SUBTRACT', -1, -4)).to.equal(3);
+    expect(calculateNumber('SUBTRACT', -1.2, -1.4)).to.equal(0);
+    expect(calculateNumber('SUBTRACT', -2, 3.2)).to.equal(-5);
   });
 
-  it('handles dividing two rounded numbers when type is DIVIDE', () => {
-    expect(calculateNumber('DIVIDE', 8, 2)).to.equal(4);
-    // expect(calculateNumber('DIVIDE', 5.0, 3.0)).toEqual(2);
+  it('checks the rounded division', () => {
+    expect(calculateNumber('DIVIDE', 6, 2)).to.equal(3);
+    expect(calculateNumber('DIVIDE', 3.3, 1)).to.equal(3);
+    expect(calculateNumber('DIVIDE', 1.4, 4.5)).to.equal(0.2);
+    expect(calculateNumber('DIVIDE', 1.7, 3.7)).to.equal(0.5);
+    expect(calculateNumber('DIVIDE', -6, 3)).to.equal(-2);
+    expect(calculateNumber('DIVIDE', -6, -3)).to.equal(2);
+    expect(calculateNumber('DIVIDE', -6.2, -3.4)).to.equal(2);
+    expect(calculateNumber('DIVIDE', -2, 2.1)).to.equal(-1);
+    expect(calculateNumber('DIVIDE', -2, 0)).to.equal('Error');
   });
 
-  it('returns Error when dividing by 0', () => {
-    expect(calculateNumber('DIVIDE', 4, 0)).to.equal('Error');
-    expect(calculateNumber('DIVIDE', -8, 0)).to.equal('Error');
-  });
 
-  it('throws an error when an invalid type is provided', () => {
-    expect(() => calculateNumber('INVALID_TYPE', 1, 2)).to.throw(Error);
+  it('checks the NaN number', () => {
+    expect(() => calculateNumber('SUM', NaN, 5)).to.throw();
+    expect(() => calculateNumber('SUBTRACT', NaN, 5)).to.throw();
+    expect(() => calculateNumber('DIVIDE', NaN, 5)).to.throw();
+    expect(() => calculateNumber('shhh', NaN, 5)).to.throw();
   });
 });
