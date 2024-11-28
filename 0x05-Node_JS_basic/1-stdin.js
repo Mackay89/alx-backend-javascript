@@ -1,24 +1,26 @@
 /**
- * Program to prompt the user for their name and display a custom message.
+ * Prompts the user to enter their name, reads the input from STDIN,
+ * and displays a message containing the user's name.
  *
- * - Displays a welcome message.
- * - Reads user input from stdin and outputs a personalized message.
- * - Displays a closing message when the program ends.
+ * When the user ends the program, a closing message is displayed.
+ *
+ * @example
+ * // Output:
+ * // Welcome to Holberton School, what is your name?
+ * // Alice
+ * // Your name is: Alice
+ * // This important software is now closing
  */
-
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-// Listen for input from the user
 process.stdin.on('readable', () => {
-  const chunk = process.stdin.read(); // Read user input
+  const chunk = process.stdin.read();
 
-  if (chunk !== null) {
-    const name = chunk.toString().trim(); // Convert input to string and trim whitespace
-    process.stdout.write(`Your name is: ${name}\n`);
+  if (chunk) {
+    process.stdout.write(`Your name is: ${chunk}`);
   }
 });
 
-// Listen for the end event (triggered by Ctrl+D or piped input)
 process.stdin.on('end', () => {
   process.stdout.write('This important software is now closing\n');
 });
